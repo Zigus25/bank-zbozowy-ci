@@ -1,0 +1,25 @@
+name: Java CI with Maven
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Pobranie kodu repozytorium
+      uses: actions/checkout@v4
+
+    - name: Konfiguracja JDK 11
+      uses: actions/setup-java@v4
+      with:
+        java-version: '11'
+        distribution: 'temurin'
+        cache: maven
+
+    - name: Budowanie i testowanie za pomoca Maven
+      run: mvn -B test --file pom.xml
